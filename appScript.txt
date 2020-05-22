@@ -1,0 +1,35 @@
+var ss = SpreadsheetApp.openByUrl("googleSheet Url");
+
+var sheet = ss.getSheetByName('customers'); // it is the sheet name
+
+
+function doPost(e){
+  var action = e.parameter.action;
+
+  if(action == 'addItem'){
+    return addItem(e);
+    
+  }
+
+}
+
+
+function addItem(e){
+  
+var Name = e.parameter.Name;
+var Email = e.parameter.Email;
+var Phone = e.parameter.Phone;
+var Product = e.parameter.Product;
+var Quantity = e.parameter.Quantity;
+var Amount = e.parameter.Amount;
+var Date =  new Date();
+
+
+
+sheet.appendRow([Name,Email,Phone,Product,Quantity,Amount,Date]);
+
+   return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+
+}
+
+//var id  =  "Item"+sheet.getLastRow();

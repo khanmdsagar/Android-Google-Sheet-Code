@@ -1,0 +1,39 @@
+StringRequest stringRequest = new StringRequest(Request.Method.POST, "url goes here",
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (response.equalsIgnoreCase("Success")){
+                                        progressDialog.dismiss();
+                                        Toast.makeText(recordActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        progressDialog.dismiss();
+                                        Toast.makeText(recordActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            },
+
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(recordActivity.this, "Error occured", Toast.LENGTH_SHORT).show();
+                                }
+                            }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+
+                            params.put("action", action);
+                            params.put("Name", Name);
+                            params.put("Email", Email);
+                            params.put("Phone", Phone);
+                            params.put("Product", Product);
+                            params.put("Quantity", Quantity);
+                            params.put("Amount", Amount);
+                            params.put("Date", Date);
+                            return params;
+                        }
+                    };
+
+RequestQueue requestQueue = Volley.newRequestQueue(recordActivity.this);
+requestQueue.add(stringRequest);
